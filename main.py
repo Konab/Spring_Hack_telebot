@@ -65,9 +65,12 @@ if __name__ == '__main__':
 		send_menu_row()
 
 
-	@bot.message_handler(lambda x: True)
-	def menu_handler(x):
-		print(x)
+	@bot.message_handler(content_types=['text'])
+	def menu_handler(messege):
+		if messege == BaseKeyboards['get_help']:
+			print('>> get_help')
+		elif messege == BaseKeyboards['get_phone']:
+			print('>> get_phone')
 
 
 	print('--> Запускаю бота')
