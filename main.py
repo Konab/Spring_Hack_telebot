@@ -65,5 +65,10 @@ if __name__ == '__main__':
 		send_menu_row()
 
 
+	@bot.message_handler(lambda x: True)
+	def menu_handler(x):
+		print(x)
+
+
 	print('--> Запускаю бота')
 	bot.polling(True)
