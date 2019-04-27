@@ -27,8 +27,8 @@ if __name__ == '__main__':
 				types.KeyboardButton(ClientTypeKeyboards['set_individual']),
 				types.KeyboardButton(ClientTypeKeyboards['set_entity']),
 			)
-		for key in ServiceType:
-			markup.row(types.KeyboardButton(ServiceType[key]))
+		for key in ServiceTypeKeyboards:
+			markup.row(types.KeyboardButton(ServiceTypeKeyboards[key]))
 		markup.row(
 				types.KeyboardButton(BaseKeyboards['get_help']),
 				types.KeyboardButton(BaseKeyboards['get_phone'])
