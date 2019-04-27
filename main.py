@@ -10,3 +10,5 @@ def start_handler(messege):
 
 if __name__ == '__main__':
 	bot = TeleBot(Config.TOKEN)
+	print('--> Запускаю бота')
+	bot.polling(True)
