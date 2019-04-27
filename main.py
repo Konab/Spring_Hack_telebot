@@ -3,6 +3,7 @@ from config import Config
 
 
 if __name__ == '__main__':
+	bot = TeleBot(Config.TOKEN)
 
 	@bot.message_handler(commands=['start'])
 	def start_handler(messege):
@@ -10,6 +11,5 @@ if __name__ == '__main__':
 		bot.send_message(messege.chat.id, 'Hello, *{}*'.format(messege.from_user.first_name), parse_mode='markdown')
 
 
-	bot = TeleBot(Config.TOKEN)
 	print('--> Запускаю бота')
 	bot.polling(True)
