@@ -3,8 +3,8 @@ from config import Config
 from telebot import types
 
 
-BaseKeyboards = {'get_help': '💁‍♀️ Справочная информация',
-			'get_phone': '☎️ Телефон оператора'
+BaseKeyboards = {'get_help': '💁‍♀️ Информация',
+			'get_phone': '☎️ Телефон банка'
 }
 ClientTypeKeyboards = {
 	'set_individual': '🧑 Частным лицам',
@@ -27,6 +27,7 @@ if __name__ == '__main__':
 			)
 		for key in ServiceType:
 			markup.row(types.KeyboardButton(ServiceType[key]))
+		markup
 		for key in BaseKeyboards:
 			markup.row(types.KeyboardButton(BaseKeyboards[key]))
 
