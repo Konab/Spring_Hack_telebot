@@ -3,9 +3,17 @@ from config import Config
 from telebot import types
 
 
-Keyboards = {'get_help': '💁‍♀️ Справочная информация',
+BaseKeyboards = {'get_help': '💁‍♀️ Справочная информация',
 			'get_phone': '☎️ Телефон оператора'
-		}
+}
+ClientTypeKeyboards = {
+	'set_individual': '🧑 Частным лицам',
+	'set_entity': '👨‍💻 Бизнесу'
+}
+ServiceType = {
+	'get_enroll': '✍️ Записаться на приём',
+	'get_dialog': '💬 Получить консультацию'
+}
 
 if __name__ == '__main__':
 	bot = TeleBot(Config.TOKEN)
@@ -13,8 +21,12 @@ if __name__ == '__main__':
 	def send_menu_col(chat_id):
 		# It defines how many button are fit on each row before continuing on next row
 		markup = types.ReplyKeyboardMarkup(row_width=2)
-		for key in Keyboards:
-			markup.row(Keyboards[key])
+		markup.row(
+				types.KeyboardButton(ClientTypeKeyboards['set_individual']),
+				types.KeyboardButton(ClientTypeKeyboards['set_entity']),
+			)
+		for key in BaseKeyboards:
+			markup.row(types.KeyboardButton(BaseKeyboards[key]))
 
 		markup.add()
 		bot.send_message(chat_id, 'Choose one letter:', reply_markup=markup)
