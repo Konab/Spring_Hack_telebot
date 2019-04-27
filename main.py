@@ -67,10 +67,18 @@ if __name__ == '__main__':
 
 	@bot.message_handler(content_types=['text'])
 	def menu_handler(messege):
-		if messege == BaseKeyboards['get_help']:
+		if messege.text == BaseKeyboards['get_help']:
 			print('>> get_help')
-		elif messege == BaseKeyboards['get_phone']:
+		elif messege.text == BaseKeyboards['get_phone']:
 			print('>> get_phone')
+		elif messege.text == ClientTypeKeyboards['set_individual']:
+			print('>> set_individual')
+		elif messege.text == ClientTypeKeyboards['set_entity']:
+			print('>> set_entity')
+		elif messege.text == ServiceTypeKeyboards['get_enroll']:
+			print('>> get_enroll')
+		elif messege.text == ServiceTypeKeyboards['get_dialog']:
+			print('>> get_dialog')
 
 
 	print('--> Запускаю бота')
