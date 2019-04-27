@@ -8,8 +8,8 @@ BaseKeyboards = {
 	'get_phone': '☎️ Телефон банка'
 }
 ClientTypeKeyboards = {
-	'set_individual': '🧑 Частным лицам',
-	'set_entity': '👨‍💻 Бизнесу'
+	'set_individual': '🧑',#' Частным лицам',
+	'set_entity': '👨‍💻'#' Бизнесу'
 }
 ServiceTypeKeyboards = {
 	'get_enroll': '✍️ Записаться на приём',
