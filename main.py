@@ -35,7 +35,7 @@ if __name__ == '__main__':
 		send_menu_col()
 
 
-	@bot.messege_handler(commands=['info'])
+	@bot.message_handler(commands=['info'])
 	def info_handler(messege):
 		print('::> Info by user: {}, id: {}'.format(messege.from_user.first_name, messege.chat.id))
 		send_menu_row()
