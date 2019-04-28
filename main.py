@@ -102,12 +102,12 @@ def get_help():
 	return '*Добро пожаловать!*\nЯ - бот команды 51с для банка *«Уралсиб»*.\nЯ помогу вам найти отделение банка и встать в очередь прямо сейчас.'
 
 
-def get_phone(type=None):
+def get_phone(query):
 	individual_phone = '*Частным лицам:* 8 (495) 723-77-77'
 	entity_phone = '*Бизнесу:* 8 (800) 700-77-16'
-	if type == 'individual':
+	if query.client_type == 'individual':
 		return individual_phone
-	elif type == 'entity':
+	elif query.client_type == 'entity':
 		return entity_phone
 	else:
 		return individual_phone + '\n' + entity_phone
@@ -153,7 +153,7 @@ if __name__ == '__main__':
 			# print(api_request(API, 'get_help'))
 		elif messege.text == BaseKeyboards['get_phone']:
 			print('>> get_phone')
-			bot.send_message(messege.chat.id, get_phone(), parse_mode='markdown')
+			bot.send_message(messege.chat.id, get_phone(query), parse_mode='markdown')
 			# print(api_request(API, 'get_phone'))
 		elif messege.text == ClientTypeKeyboards['set_individual']:
 			print('>> set_individual')
