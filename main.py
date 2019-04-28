@@ -5,6 +5,14 @@ from telebot import types
 import requests
 import json
 from dataclasses import dataclass
+from random import choice
+
+
+def get_number():
+	a = [i for i in range(10)]
+	b = [choice(a) for _ in range(6)]
+	return '{0}{1}{2}-{3}{4}{5}'.format(*b)
+
 
 
 @dataclass
@@ -128,6 +136,9 @@ def get_near(chat_id, api, query):
 				info=company_dict['info-page'].replace('\n', '')[5:],
 				work=company_dict['working-time'].replace('\n', '')[5:]
 			)
+		reply = json.dumps({'inline_keyboard': [
+			[{'text': '✅ Записаться', 'callback_data': 'call_accepted'}],
+		]})
 		bot.send_message(chat_id, text, parse_mode='markdown', disable_web_page_preview=True)
 		bot.send_location(chat_id, company_dict['lon'], company_dict['lat'])
 
@@ -210,6 +221,7 @@ if __name__ == '__main__':
 			# print(api_request(API, 'get_enroll'))
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
 			print('>> get_dialog')
+			bot.send_message(messege.chat.id, 'Вы хотите решить Ваш вопрос с оператором?')
 			# markup = types.ReplyKeyboardRemove(selective=False)
 			# bot.send_message(chat_id, 'Чем я могу помочь?', reply_markup=markup)
 			# print(api_request(API, 'get_dialog'))
@@ -238,6 +250,15 @@ if __name__ == '__main__':
 				# get_near(API, query)
 			else:
 				get_near(message.chat.id, API, query)
+
+
+	@bot.callback_query_handler(func=lambda call: True)
+	def callback(call):
+
+		msg = cell.data.split('_')
+
+		if msg[1] == 'accepted':
+			bot.send_message(call.message.chat.id, '*Ваш номер:* {}'format(get_number()), parse_mode='markdown')
 
 	# Запускаем бота
 	print('--> Запускаю бота')
