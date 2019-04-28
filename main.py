@@ -26,6 +26,9 @@ class Query:
 		if curr_geo != None:
 			self.curr_geo = curr_geo
 
+	def to_dict(self):
+		return {'client_type': self.client_type, 'service': self.service, 'curr_geo': self.curr_geo}
+
 
 # Словарик с базовыми кнопками (на всех экранах меню)
 BaseKeyboards = {
@@ -102,6 +105,8 @@ def get_near(api, query):
 	print('•'*10)
 	print('The Fin')
 	print(query)
+	req = requests.get(api, params=query.to_dict())
+	print(req)
 
 
 def get_help():
@@ -140,7 +145,7 @@ if __name__ == '__main__':
 		# Обаботчик команды '/start'
 		print('::> Start by user: {}, id: {}'.format(messege.from_user.first_name, messege.chat.id))
 		query.remove()
-		bot.send_message(messege.chat.id, 'Hello, *{}*'.format(messege.from_user.first_name), parse_mode='markdown')
+		bot.send_message(messege.chat.id, 'Здравствуйте, *{}*'.format(messege.from_user.first_name), parse_mode='markdown')
 		send_menu_col(messege.chat.id)
 
 
