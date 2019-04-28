@@ -187,7 +187,7 @@ if __name__ == '__main__':
 
 
 	@bot.message_handler(content_types=["location"])
-	def location(messege):
+	def location(message):
 		print('>> location')
 		if message.location is not None:
 			print(message.location)
