@@ -255,7 +255,7 @@ if __name__ == '__main__':
 	@bot.callback_query_handler(func=lambda call: True)
 	def callback(call):
 
-		msg = cell.data.split('_')
+		msg = call.data.split('_')
 
 		if msg[1] == 'accepted':
 			bot.send_message(call.message.chat.id, '*Ваш номер:* {}'.format(get_number()), parse_mode='markdown')
