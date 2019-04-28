@@ -10,6 +10,7 @@ from dataclasses import dataclass
 @dataclass
 class Query:
 	client_type: str = ''
+	service: str = ''
 	geo: str = ''
 
 
@@ -30,16 +31,48 @@ ServiceTypeKeyboards = {
 }
 
 
-def set_client_type_keyboard(query, markup, type=None):
-	if type == 'individual':
-		return markup.row(types.KeyboardButton('Частное лицо: *Изменить*'))
-	elif type == 'entity':
-		return markup.row(types.KeyboardButton('Юр. лицо: *Изменить*'))
+def set_client_type_keyboard(query, markup):
+	if query.client_type == 'individual':
+		markup.row(types.KeyboardButton('Частное лицо: *Изменить*'))
+	elif query.client_type == 'entity':
+		markup.row(types.KeyboardButton('Юр. лицо: *Изменить*'))
 	else:
-		return markup.row(
+		markup.row(
 				types.KeyboardButton(ClientTypeKeyboards['set_individual']),
 				types.KeyboardButton(ClientTypeKeyboards['set_entity'])
 			)
+	return markup
+
+
+def set_service_type_keyboard(query, markup):
+	if query.service == 'enroll':
+		pass
+	elif query.service == 'dialog':
+		pass
+	else:
+		for key in ServiceTypeKeyboards:
+					markup.row(types.KeyboardButton(ServiceTypeKeyboards[key]))
+	return markup
+
+
+def set_base_keyboard():
+	markup.row(
+			types.KeyboardButton(BaseKeyboards['get_help']),
+			types.KeyboardButton(BaseKeyboards['get_phone'])
+		)
+	return markup
+
+
+def set_keyboard(query):
+	# Объект макета меню (клавиатуры)
+	markup = types.ReplyKeyboardMarkup()
+	# Добавляем кнопки выбора типа клиента
+	markup = set_client_type_keyboard(query, markup)
+	# Добавляем кнопки вызова меню
+	markup = set_service_type_keyboard(query, markup)
+	# Добавляем базовые кнопки меню
+	markup = set_base_keyboard()
+	return markup
 
 
 def api_request(api, method):
@@ -69,20 +102,9 @@ if __name__ == '__main__':
 	query = Query()
 
 	def send_menu_col(chat_id):
-		# Объект макета меню (клавиатуры)
-		markup = types.ReplyKeyboardMarkup()
-		# Добавляем кнопки выбора типа клиента
-		set_client_type_keyboard(query, markup)
-		# Добавляем кнопки вызова меню
-		for key in ServiceTypeKeyboards:
-			markup.row(types.KeyboardButton(ServiceTypeKeyboards[key]))
-		# Добавляем базовые кнопки меню
-		markup.row(
-				types.KeyboardButton(BaseKeyboards['get_help']),
-				types.KeyboardButton(BaseKeyboards['get_phone'])
-			)
 		# Отправляем макет клавиатуры телеграму
-		bot.send_message(chat_id, 'Choose one letter:', reply_markup=markup)
+		markup = set_keyboard(query)
+		bot.send_message(chat_id, '', reply_markup=markup)
 
 
 	@bot.message_handler(commands=['start'])
@@ -112,9 +134,11 @@ if __name__ == '__main__':
 			# print(api_request(API, 'get_phone'))
 		elif messege.text == ClientTypeKeyboards['set_individual']:
 			print('>> set_individual')
+			query.client_type = 'individual'
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
+			query.client_type = 'entity'
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
