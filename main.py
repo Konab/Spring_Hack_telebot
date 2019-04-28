@@ -185,6 +185,10 @@ if __name__ == '__main__':
 			query.update(client_type='')
 			send_menu_col(messege.chat.id)
 
+	@bot.callback_query_handler(func=lambda call: True)
+	def callback(call):
+		print(call)
+
 	# Запускаем бота
 	print('--> Запускаю бота')
 	bot.polling(True)
