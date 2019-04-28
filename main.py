@@ -140,7 +140,7 @@ def get_near(chat_id, api, query):
 			[{'text': '✅ Записаться', 'callback_data': 'call_accepted'}],
 		]})
 		bot.send_message(chat_id, text, parse_mode='markdown', disable_web_page_preview=True)
-		bot.send_location(chat_id, company_dict['lon'], company_dict['lat'])
+		bot.send_location(chat_id, company_dict['lon'], company_dict['lat'], reply_markup=reply)
 
 
 def get_help():
