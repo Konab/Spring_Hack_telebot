@@ -108,10 +108,12 @@ def get_near(chat_id, api, query):
 	req = requests.get('{}{}'.format(api, 'get_near'), params=query.to_dict())
 	if req.status_code == 200:
 		company_dict = req.json()
-		text = '*Ближайшее отделение находится по адрессу:* {address}\n*Время в пути:* {time}'.\
+		text = '*Ближайшее отделение находится по адрессу:* {address}\n*Информация:* {info}\n*Время работы:* {work}\n*Время в пути:* {time}мин'.\
 			format(
 				address=company_dict['address'].replace('\n', ''), 
-				time=company_dict['time']
+				time=company_dict['time'],
+				info=company_dict['info-page'].replace('\n', ''),
+				work=company_dict['working-time'].replace('\n', '')
 			)
 		bot.send_message(chat_id, text, parse_mode='markdown')
 
