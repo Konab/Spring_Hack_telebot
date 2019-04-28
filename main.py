@@ -24,8 +24,23 @@ ServiceTypeKeyboards = {
 
 
 def api_request(api, method):
-	print('{}?{}'.format(api, method))
+	'--> Отправил запрос на сервер'
 	return requests.get('{}{}'.format(api, method)).json()
+
+
+def get_help():
+	return '*Добро пожаловать!*\nЯ - бот команды 51с для банка *«Уралсиб»*.\nЯ помогу вам найти отделение банка и встать в очередь прямо сейчас.'
+
+
+def get_phone(type=None):
+	individual_phone = '*Частным лицам:* 8 (495) 723-77-77'
+	entity_phone = '*Бизнесу:* 8 (800) 700-77-16'
+	if type == 'individual':
+		return individual_phone
+	elif type == 'entity':
+		return entity_phone
+	else:
+		return individual_phone + '\n' + entity_phone
 
 
 if __name__ == '__main__':
@@ -72,17 +87,24 @@ if __name__ == '__main__':
 		# Обработчик меню и текста
 		if messege.text == BaseKeyboards['get_help']:
 			print('>> get_help')
-			print(api_request(API, 'get_help'))
+			bot.send_message(messege.chat.id, get_help(), parse_mode='markdown')
+			# print(api_request(API, 'get_help'))
 		elif messege.text == BaseKeyboards['get_phone']:
 			print('>> get_phone')
+			bot.send_message(messege.chat.id, get_phone(), parse_mode='markdown')
+			# print(api_request(API, 'get_phone'))
 		elif messege.text == ClientTypeKeyboards['set_individual']:
 			print('>> set_individual')
+			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
+			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
+			# print(api_request(API, 'get_enroll'))
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
 			print('>> get_dialog')
+			# print(api_request(API, 'get_dialog'))
 
 	# Запускаем бота
 	print('--> Запускаю бота')
