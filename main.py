@@ -18,12 +18,12 @@ class Query:
 		self.service = ''
 		self.geo = ''
 
-	def update(self, client_type='', service='', geo=''):
-		if client_type:
+	def update(self, client_type=None, service=None, geo=None):
+		if client_type != None:
 			self.client_type = client_type
-		if service:
+		if service != None:
 			self.service = service
-		if geo:
+		if geo != None:
 			self.geo = geo
 
 
@@ -133,9 +133,9 @@ if __name__ == '__main__':
 	def start_handler(messege):
 		# Обаботчик команды '/start'
 		print('::> Start by user: {}, id: {}'.format(messege.from_user.first_name, messege.chat.id))
+		query.remove()
 		bot.send_message(messege.chat.id, 'Hello, *{}*'.format(messege.from_user.first_name), parse_mode='markdown')
 		send_menu_col(messege.chat.id)
-		query.remove()
 
 
 	@bot.message_handler(commands=['info'])
@@ -158,12 +158,12 @@ if __name__ == '__main__':
 		elif messege.text == ClientTypeKeyboards['set_individual']:
 			print('>> set_individual')
 			query.client_type = 'individual'
-			send_menu_col(messege.chat.id, text='Вы выбрали тип: *Частное лицо*')
+			send_menu_col(messege.chat.id, text='Вы выбрали тип: Частное лицо')
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
 			query.client_type = 'entity'
-			send_menu_col(messege.chat.id, text='Вы выбрали тип: *Юр. лицо*')
+			send_menu_col(messege.chat.id, text='Вы выбрали тип: Юр. лицо')
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
@@ -172,11 +172,11 @@ if __name__ == '__main__':
 			print('>> get_dialog')
 			# print(api_request(API, 'get_dialog'))
 		elif messege.text == Change['individual']:
-			query.update(client_type='individual')
-			send_menu_col(text='Вы выбрали: частное лицо')
+			query.update(client_type='')
+			send_menu_col(messege.chat.id)
 		elif messege.text == Change['entity']:
-			query.update(client_type='entity')
-			send_menu_col(text='Вы выбрали: юр. лицо')
+			query.update(client_type='')
+			send_menu_col(messege.chat.id)
 
 	# Запускаем бота
 	print('--> Запускаю бота')
