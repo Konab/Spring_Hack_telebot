@@ -115,7 +115,8 @@ def get_near(chat_id, api, query):
 				info=company_dict['info-page'].replace('\n', ''),
 				work=company_dict['working-time'].replace('\n', '')
 			)
-		bot.send_message(chat_id, text, parse_mode='markdown')
+		bot.send_message(chat_id, text, parse_mode='markdown', disable_web_page_preview=True)
+		bot.send_location(chat_id, company_dict['lat'], company_dict['lon'])
 
 
 def get_help():
