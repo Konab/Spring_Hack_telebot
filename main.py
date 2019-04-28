@@ -128,7 +128,7 @@ def get_phone(query):
 if __name__ == '__main__':
 	#Берем объект бота
 	bot = TeleBot(Config.TOKEN)
-	API = 'http://127.0.0.1:5000/'
+	API = 'http://127.0.0.1:8000/'
 	query = Query()
 
 
