@@ -107,7 +107,7 @@ def get_near(api, query):
 	print(query)
 	req = requests.get('{}{}'.format(api, 'get_near'), params=query.to_dict())
 	if req.status_code == 200:
-		print('>> ', req)
+		print('>> ', req.json)
 
 
 def get_help():
