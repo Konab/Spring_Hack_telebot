@@ -70,7 +70,7 @@ def set_service_type_keyboard(query, markup):
 		pass
 	else:
 		for key in ServiceTypeKeyboards:
-					markup.row(types.KeyboardButton(ServiceTypeKeyboards[key]))
+					markup.row(types.KeyboardButton(ServiceTypeKeyboards[key], request_location=True))
 	return markup
 
 
