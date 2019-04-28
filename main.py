@@ -119,10 +119,6 @@ def get_phone(query):
 		return individual_phone + '\n' + entity_phone
 
 
-def set_enroll(query):
-	query.service = 'enroll'
-
-
 if __name__ == '__main__':
 	#Берем объект бота
 	bot = TeleBot(Config.TOKEN)
@@ -177,7 +173,7 @@ if __name__ == '__main__':
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
-			set_enroll(query)
+			query.service = 'enroll'
 			#######
 			# print(api_request(API, 'get_enroll'))
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
