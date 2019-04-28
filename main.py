@@ -13,6 +13,19 @@ class Query:
 	service: str = ''
 	geo: str = ''
 
+	def remove(self):
+		self.client_type = ''
+		self.service = ''
+		self.geo = ''
+
+	def update(self, client_type='', service='', geo=''):
+		if client_type:
+			self.client_type = client_type
+		if service:
+			self.service = service
+		if geo:
+			self.geo = geo
+
 
 # Словарик с базовыми кнопками (на всех экранах меню)
 BaseKeyboards = {
@@ -30,12 +43,17 @@ ServiceTypeKeyboards = {
 	'get_dialog': '💬 Получить консультацию'
 }
 
+Change = {
+	'individual': '🧑 Частное лицо: Изменить',
+	'entity': '👨‍💻 Юр. лицо: Изменить'
+}
+
 
 def set_client_type_keyboard(query, markup):
 	if query.client_type == 'individual':
-		markup.row(types.KeyboardButton('Частное лицо: *Изменить*'))
+		markup.row(types.KeyboardButton(Change[query.client_type]))
 	elif query.client_type == 'entity':
-		markup.row(types.KeyboardButton('Юр. лицо: *Изменить*'))
+		markup.row(types.KeyboardButton(Change[query.client_type]))
 	else:
 		markup.row(
 				types.KeyboardButton(ClientTypeKeyboards['set_individual']),
@@ -101,6 +119,7 @@ if __name__ == '__main__':
 	API = 'http://127.0.0.1:5000/'
 	query = Query()
 
+
 	def send_menu_col(chat_id, text=''):
 		# Отправляем макет клавиатуры телеграму
 		markup = set_keyboard(query)
@@ -116,6 +135,7 @@ if __name__ == '__main__':
 		print('::> Start by user: {}, id: {}'.format(messege.from_user.first_name, messege.chat.id))
 		bot.send_message(messege.chat.id, 'Hello, *{}*'.format(messege.from_user.first_name), parse_mode='markdown')
 		send_menu_col(messege.chat.id)
+		query.remove()
 
 
 	@bot.message_handler(commands=['info'])
@@ -151,6 +171,10 @@ if __name__ == '__main__':
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
 			print('>> get_dialog')
 			# print(api_request(API, 'get_dialog'))
+		elif messege.text == Change['individual']:
+
+		elif messege.text == Change['entity']:
+			pass
 
 	# Запускаем бота
 	print('--> Запускаю бота')
