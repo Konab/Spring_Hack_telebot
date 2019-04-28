@@ -52,8 +52,8 @@ Change = {
 }
 
 
-def start_dialog(api, chat_id, text):
-	req = requests.get('{}{}'.format(api, 'detected_text'), params=query.to_dict())
+# def start_dialog(api, chat_id, text):
+# 	req = requests.get('{}{}'.format(api, 'detected_text'), params=query.to_dict())
 
 
 def set_client_type_keyboard(query, markup):
@@ -220,7 +220,8 @@ if __name__ == '__main__':
 			query.update(client_type='')
 			send_menu_col(messege.chat.id)
 		else:
-			start_dialog(API, message.chat.id, messege.text)
+			bot.send_message(messege.chat.id, 'Вы хотите решить Ваш вопрос с оператором?')
+		# 	start_dialog(API, message.chat.id, messege.text)
 
 
 	@bot.message_handler(content_types=["location"])
