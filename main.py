@@ -27,7 +27,7 @@ class Query:
 			self.curr_geo = curr_geo
 
 	def to_dict(self):
-		return {'client_type': self.client_type, 'service': self.service, 'curr_geo': self.curr_geo}
+		return {'client_type': self.client_type, 'service': self.service, 'lat': self.curr_geo['lat']. 'lon': self.curr_geo['lon']}
 
 
 # Словарик с базовыми кнопками (на всех экранах меню)
