@@ -172,9 +172,11 @@ if __name__ == '__main__':
 			print('>> get_dialog')
 			# print(api_request(API, 'get_dialog'))
 		elif messege.text == Change['individual']:
-
+			query.update(client_type='individual')
+			send_menu_col(text='Вы выбрали: частное лицо')
 		elif messege.text == Change['entity']:
-			pass
+			query.update(client_type='entity')
+			send_menu_col(text='Вы выбрали: юр. лицо')
 
 	# Запускаем бота
 	print('--> Запускаю бота')
