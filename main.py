@@ -188,6 +188,7 @@ if __name__ == '__main__':
 
 	@bot.message_handler(content_types=["location"])
 	def location(messege):
+		print('>> location')
 		if message.location is not None:
 			print(message.location)
 			print("latitude: %s; longitude: %s" % (message.location.latitude, message.location.longitude))
