@@ -72,7 +72,7 @@ if __name__ == '__main__':
 		# Обработчик меню и текста
 		if messege.text == BaseKeyboards['get_help']:
 			print('>> get_help')
-			print(api_request(API, messege.text))
+			print(api_request(API, 'get_help'))
 		elif messege.text == BaseKeyboards['get_phone']:
 			print('>> get_phone')
 		elif messege.text == ClientTypeKeyboards['set_individual']:
