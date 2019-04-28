@@ -52,6 +52,10 @@ Change = {
 }
 
 
+def start_dialog(api, chat_id, text):
+	req = requests.get('{}{}'.format(api, 'detected_text'), params=query.to_dict())
+
+
 def set_client_type_keyboard(query, markup):
 	if query.client_type == 'individual':
 		markup.row(types.KeyboardButton(Change[query.client_type]))
@@ -108,7 +112,7 @@ def get_near(chat_id, api, query):
 	req = requests.get('{}{}'.format(api, 'get_near'), params=query.to_dict())
 	if req.status_code == 200:
 		company_dict = req.json()
-		text = '*Ближайшее отделение находится по адрессу:* {address}\n*Информация:* {info}\n*Время работы:* {work}\n*Время в пути:* {time}мин'.\
+		text = '*Ближайшее отделение находится по адресу:* {address}\n*Информация:* {info}\n*Время работы:* {work}\n*Время в пути:* {time}мин'.\
 			format(
 				address=company_dict['address'].replace('\n', '')[5:], 
 				time=company_dict['time'],
@@ -197,6 +201,8 @@ if __name__ == '__main__':
 			# print(api_request(API, 'get_enroll'))
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
 			print('>> get_dialog')
+			markup = types.ReplyKeyboardRemove(selective=False)
+			bot.send_message(chat_id, 'Чем я могу помочь?', reply_markup=markup)
 			# print(api_request(API, 'get_dialog'))
 		elif messege.text == Change['individual']:
 			query.update(client_type='')
@@ -204,6 +210,8 @@ if __name__ == '__main__':
 		elif messege.text == Change['entity']:
 			query.update(client_type='')
 			send_menu_col(messege.chat.id)
+		else:
+			start_dialog(API, message.chat.id, messege.text)
 
 
 	@bot.message_handler(content_types=["location"])
