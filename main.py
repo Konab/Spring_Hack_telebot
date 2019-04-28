@@ -106,8 +106,8 @@ def get_near(api, query):
 	print('The Fin')
 	print(query)
 	req = requests.get('{}{}'.format(api, 'get_near'), params=query.to_dict())
-	if req.code == 200:
-		print(req)
+	if req.status_code == 200:
+		print('>> ', req)
 
 
 def get_help():
