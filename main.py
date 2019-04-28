@@ -72,7 +72,7 @@ if __name__ == '__main__':
 		# Объект макета меню (клавиатуры)
 		markup = types.ReplyKeyboardMarkup()
 		# Добавляем кнопки выбора типа клиента
-		set_client_type_keyboard(query, markup):
+		set_client_type_keyboard(query, markup)
 		# Добавляем кнопки вызова меню
 		for key in ServiceTypeKeyboards:
 			markup.row(types.KeyboardButton(ServiceTypeKeyboards[key]))
