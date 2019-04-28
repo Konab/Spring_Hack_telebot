@@ -198,6 +198,7 @@ if __name__ == '__main__':
 
 			if not query.client_type:
 				send_menu_col(message.chat.id, text='Вы частное или юридическое лицо?')
+				get_near(API, query)
 			else:
 				get_near(API, query)
 
