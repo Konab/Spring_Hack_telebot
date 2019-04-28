@@ -258,7 +258,7 @@ if __name__ == '__main__':
 		msg = cell.data.split('_')
 
 		if msg[1] == 'accepted':
-			bot.send_message(call.message.chat.id, '*Ваш номер:* {}'format(get_number()), parse_mode='markdown')
+			bot.send_message(call.message.chat.id, '*Ваш номер:* {}'.format(get_number()), parse_mode='markdown')
 
 	# Запускаем бота
 	print('--> Запускаю бота')
