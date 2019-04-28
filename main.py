@@ -111,9 +111,9 @@ def get_near(chat_id, api, query):
 		text = '*Ближайшее отделение находится по адрессу:* {address}\n*Информация:* {info}\n*Время работы:* {work}\n*Время в пути:* {time}мин'.\
 			format(
 				address=company_dict['address'].replace('\n', '')[5:], 
-				time=company_dict['time'][5:],
+				time=company_dict['time'],
 				info=company_dict['info-page'].replace('\n', '')[5:],
-				work=company_dict['working-time'].replace('\n', '')
+				work=company_dict['working-time'].replace('\n', '')[5:]
 			)
 		bot.send_message(chat_id, text, parse_mode='markdown', disable_web_page_preview=True)
 		bot.send_location(chat_id, company_dict['lon'], company_dict['lat'])
