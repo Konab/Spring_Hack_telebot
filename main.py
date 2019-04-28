@@ -195,7 +195,7 @@ if __name__ == '__main__':
 		if message.location is not None:
 			location = message.location
 			print(location)
-			query.curr_geo = {'lat': location['latitude'], 'lon': location['longitude']}
+			query.curr_geo = {'lat': location.latitude, 'lon': location.longitude}
 
 			if not query.client_type:
 				send_menu_col(message.chat.id, text='Вы частное или юридическое лицо?')
