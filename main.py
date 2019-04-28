@@ -170,14 +170,14 @@ if __name__ == '__main__':
 			print('>> set_individual')
 			query.client_type = 'individual'
 			send_menu_col(messege.chat.id, text='Вы выбрали тип: Частное лицо')
-			if query.location:
+			if query.curr_geo:
 				get_near(API, query)
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
 			query.client_type = 'entity'
 			send_menu_col(messege.chat.id, text='Вы выбрали тип: Юр. лицо')
-			if query.location:
+			if query.curr_geo:
 				get_near(API, query)
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
