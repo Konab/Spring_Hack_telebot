@@ -24,7 +24,7 @@ ServiceTypeKeyboards = {
 
 
 def api_request(api, method):
-	return json.load(requests.get('{}?{}'.format(api, method)))
+	return requests.get('{}?{}'.format(api, method)).json()
 
 
 if __name__ == '__main__':
