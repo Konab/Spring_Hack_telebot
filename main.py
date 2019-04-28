@@ -170,11 +170,15 @@ if __name__ == '__main__':
 			print('>> set_individual')
 			query.client_type = 'individual'
 			send_menu_col(messege.chat.id, text='Вы выбрали тип: Частное лицо')
+			if query.location:
+				get_near(API, query)
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
 			query.client_type = 'entity'
 			send_menu_col(messege.chat.id, text='Вы выбрали тип: Юр. лицо')
+			if query.location:
+				get_near(API, query)
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
@@ -203,7 +207,7 @@ if __name__ == '__main__':
 
 			if not query.client_type:
 				send_menu_col(message.chat.id, text='Вы частное или юридическое лицо?')
-				get_near(API, query)
+				# get_near(API, query)
 			else:
 				get_near(API, query)
 
