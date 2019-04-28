@@ -69,8 +69,8 @@ def set_service_type_keyboard(query, markup):
 	elif query.service == 'dialog':
 		pass
 	else:
-		for key in ServiceTypeKeyboards:
-					markup.row(types.KeyboardButton(ServiceTypeKeyboards[key], request_location=True))
+		markup.row(types.KeyboardButton(ServiceTypeKeyboards['get_enroll'], request_location=True))
+		markup.row(types.KeyboardButton(ServiceTypeKeyboards['get_dialog']))
 	return markup
 
 
@@ -173,7 +173,7 @@ if __name__ == '__main__':
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
 			set_enroll(query)
-			bot.send_chat_action(messege.chat.id, 'find_location')
+			#######
 			# print(api_request(API, 'get_enroll'))
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
 			print('>> get_dialog')
@@ -185,9 +185,12 @@ if __name__ == '__main__':
 			query.update(client_type='')
 			send_menu_col(messege.chat.id)
 
-	@bot.callback_query_handler(func=lambda call: True)
-	def callback(call):
-		print(call)
+
+	@bot.message_handler(content_types=["location"])
+	def location(messege):
+		if message.location is not None:
+			print(message.location)
+			print("latitude: %s; longitude: %s" % (message.location.latitude, message.location.longitude))
 
 	# Запускаем бота
 	print('--> Запускаю бота')
