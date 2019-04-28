@@ -174,6 +174,7 @@ if __name__ == '__main__':
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
 			query.service = 'enroll'
+			print(query)
 			#######
 			# print(api_request(API, 'get_enroll'))
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
