@@ -11,21 +11,20 @@ from dataclasses import dataclass
 class Query:
 	client_type: str = ''
 	service: str = ''
-	geo: str = ''
 	curr_geo: str = ''
 
 	def remove(self):
 		self.client_type = ''
 		self.service = ''
-		self.geo = ''
+		self.curr_geo = {}
 
-	def update(self, client_type=None, service=None, geo=None):
+	def update(self, client_type=None, service=None, curr_geo=None):
 		if client_type != None:
 			self.client_type = client_type
 		if service != None:
 			self.service = service
-		if geo != None:
-			self.geo = geo
+		if curr_geo != None:
+			self.curr_geo = curr_geo
 
 
 # Словарик с базовыми кнопками (на всех экранах меню)
@@ -97,6 +96,10 @@ def set_keyboard(query):
 def api_request(api, method):
 	'--> Отправил запрос на сервер'
 	return requests.get('{}{}'.format(api, method)).json()
+
+
+def get_near(api, query):
+	pass
 
 
 def get_help():
@@ -190,8 +193,14 @@ if __name__ == '__main__':
 	def location(message):
 		print('>> location')
 		if message.location is not None:
-			print(message.location)
-			print("latitude: %s; longitude: %s" % (message.location.latitude, message.location.longitude))
+			location = message.location
+			print(location)
+			query.curr_geo = {'lat': location['latitude'], 'lon': location['longitude']}
+
+			if not query.client_type:
+				send_menu_col(message.chat.id, text='Вы частное или юридическое лицо?')
+			else:
+				get_near(API, query)
 
 	# Запускаем бота
 	print('--> Запускаю бота')
