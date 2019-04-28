@@ -105,7 +105,7 @@ def get_near(api, query):
 	print('•'*10)
 	print('The Fin')
 	print(query)
-	req = requests.get(api, params=query.to_dict())
+	req = requests.get('{}{}'.format(api, 'get_near'), params=query.to_dict())
 	print(req)
 
 
