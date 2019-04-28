@@ -64,7 +64,7 @@ def set_client_type_keyboard(query, markup):
 
 def set_service_type_keyboard(query, markup):
 	if query.service == 'enroll':
-		pass
+		markup.row(types.KeyboardButton(ServiceTypeKeyboards['get_dialog']))
 	elif query.service == 'dialog':
 		pass
 	else:
@@ -99,7 +99,9 @@ def api_request(api, method):
 
 
 def get_near(api, query):
-	pass
+	print('•'*10)
+	print('The Fin')
+	print(query)
 
 
 def get_help():
