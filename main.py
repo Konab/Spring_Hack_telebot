@@ -4,6 +4,13 @@ from config import Config
 from telebot import types
 import requests
 import json
+from dataclasses import dataclass
+
+
+@dataclass
+class Query:
+	client_type: str = ''
+	geo: str = ''
 
 
 # Словарик с базовыми кнопками (на всех экранах меню)
@@ -21,6 +28,18 @@ ServiceTypeKeyboards = {
 	'get_enroll': '✍️ Записаться на приём',
 	'get_dialog': '💬 Получить консультацию'
 }
+
+
+def set_client_type_keyboard(query, markup, type=None):
+	if type == 'individual':
+		return markup.row(types.KeyboardButton('Частное лицо: *Изменить*'))
+	elif type == 'entity':
+		return markup.row(types.KeyboardButton('Юр. лицо: *Изменить*'))
+	else:
+		return markup.row(
+				types.KeyboardButton(ClientTypeKeyboards['set_individual']),
+				types.KeyboardButton(ClientTypeKeyboards['set_entity'])
+			)
 
 
 def api_request(api, method):
@@ -47,15 +66,13 @@ if __name__ == '__main__':
 	#Берем объект бота
 	bot = TeleBot(Config.TOKEN)
 	API = 'http://127.0.0.1:5000/'
+	query = Query()
 
 	def send_menu_col(chat_id):
 		# Объект макета меню (клавиатуры)
 		markup = types.ReplyKeyboardMarkup()
 		# Добавляем кнопки выбора типа клиента
-		markup.row(
-				types.KeyboardButton(ClientTypeKeyboards['set_individual']),
-				types.KeyboardButton(ClientTypeKeyboards['set_entity']),
-			)
+		set_client_type_keyboard(query, markup):
 		# Добавляем кнопки вызова меню
 		for key in ServiceTypeKeyboards:
 			markup.row(types.KeyboardButton(ServiceTypeKeyboards[key]))
