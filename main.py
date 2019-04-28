@@ -178,7 +178,7 @@ if __name__ == '__main__':
 			query.client_type = 'individual'
 			send_menu_col(messege.chat.id, text='Вы выбрали тип: Частное лицо')
 			if query.curr_geo:
-				get_near(API, query)
+				get_near(messege.chat.id, API, query)
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
@@ -216,7 +216,7 @@ if __name__ == '__main__':
 				send_menu_col(message.chat.id, text='Вы частное или юридическое лицо?')
 				# get_near(API, query)
 			else:
-				get_near(API, query)
+				get_near(message.chat.id, API, query)
 
 	# Запускаем бота
 	print('--> Запускаю бота')
