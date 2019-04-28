@@ -101,10 +101,13 @@ if __name__ == '__main__':
 	API = 'http://127.0.0.1:5000/'
 	query = Query()
 
-	def send_menu_col(chat_id):
+	def send_menu_col(chat_id, text=''):
 		# Отправляем макет клавиатуры телеграму
 		markup = set_keyboard(query)
-		bot.send_message(chat_id, '', reply_markup=markup)
+		if text:
+			bot.send_message(chat_id, text, reply_markup=markup)
+		else:
+			bot.send_message(chat_id, 'Как Вам помочь?', reply_markup=markup)
 
 
 	@bot.message_handler(commands=['start'])
@@ -135,12 +138,12 @@ if __name__ == '__main__':
 		elif messege.text == ClientTypeKeyboards['set_individual']:
 			print('>> set_individual')
 			query.client_type = 'individual'
-			send_menu_col(messege.chat.id)
+			send_menu_col(messege.chat.id, text='Вы выбрали тип: *Частное лицо*')
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
 			query.client_type = 'entity'
-			send_menu_col(messege.chat.id)
+			send_menu_col(messege.chat.id, text='Вы выбрали тип: *Юр. лицо*')
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
