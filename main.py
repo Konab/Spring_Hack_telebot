@@ -47,8 +47,8 @@ ServiceTypeKeyboards = {
 }
 
 Change = {
-	'individual': '🧑 Частное лицо: Изменить',
-	'entity': '👨‍💻 Юр. лицо: Изменить'
+	'individual': '🧑 Назад',
+	'entity': '👨‍💻 Назад'
 }
 
 
@@ -90,13 +90,22 @@ def set_base_keyboard(markup):
 
 def set_keyboard(query):
 	# Объект макета меню (клавиатуры)
-	markup = types.ReplyKeyboardMarkup()
-	# Добавляем кнопки выбора типа клиента
-	markup = set_client_type_keyboard(query, markup)
-	# Добавляем кнопки вызова меню
-	markup = set_service_type_keyboard(query, markup)
-	# Добавляем базовые кнопки меню
-	markup = set_base_keyboard(markup)
+	if not query.client_type:
+		markup = types.ReplyKeyboardMarkup()
+		# Добавляем кнопки выбора типа клиента
+		markup = set_client_type_keyboard(query, markup)
+		# Добавляем кнопки вызова меню
+		markup = set_service_type_keyboard(query, markup)
+		# Добавляем базовые кнопки меню
+		markup = set_base_keyboard(markup)
+	else:
+		markup = types.ReplyKeyboardMarkup()
+		# Добавляем кнопки вызова меню
+		markup = set_service_type_keyboard(query, markup)
+		# Добавляем базовые кнопки меню
+		markup = set_base_keyboard(markup)
+		# Добавляем кнопки выбора типа клиента
+		markup = set_client_type_keyboard(query, markup)
 	return markup
 
 
@@ -201,8 +210,8 @@ if __name__ == '__main__':
 			# print(api_request(API, 'get_enroll'))
 		elif messege.text == ServiceTypeKeyboards['get_dialog']:
 			print('>> get_dialog')
-			markup = types.ReplyKeyboardRemove(selective=False)
-			bot.send_message(chat_id, 'Чем я могу помочь?', reply_markup=markup)
+			# markup = types.ReplyKeyboardRemove(selective=False)
+			# bot.send_message(chat_id, 'Чем я могу помочь?', reply_markup=markup)
 			# print(api_request(API, 'get_dialog'))
 		elif messege.text == Change['individual']:
 			query.update(client_type='')
