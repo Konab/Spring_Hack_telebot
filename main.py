@@ -101,13 +101,19 @@ def api_request(api, method):
 	return requests.get('{}{}'.format(api, method)).json()
 
 
-def get_near(api, query):
+def get_near(chat_id, api, query):
 	print('•'*10)
 	print('The Fin')
 	print(query)
 	req = requests.get('{}{}'.format(api, 'get_near'), params=query.to_dict())
 	if req.status_code == 200:
-		print('>> ', req.json())
+		company_dict = req.json()
+		text = '*Ближайшее отделение находится по адрессу:* {address}\n*Время в пути:* {time}'.\
+			format(
+				address=company_dict['address'].replace('\n', ''), 
+				time=company_dict['time']
+			)
+		bot.send_message(chat_id, text, parse_mode='markdown')
 
 
 def get_help():
@@ -179,7 +185,7 @@ if __name__ == '__main__':
 			query.client_type = 'entity'
 			send_menu_col(messege.chat.id, text='Вы выбрали тип: Юр. лицо')
 			if query.curr_geo:
-				get_near(API, query)
+				get_near(messege.chat.id, API, query)
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
