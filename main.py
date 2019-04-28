@@ -3,6 +3,7 @@ from telebot import TeleBot
 from config import Config
 from telebot import types
 import requests
+import json
 
 
 # Словарик с базовыми кнопками (на всех экранах меню)
@@ -21,9 +22,15 @@ ServiceTypeKeyboards = {
 	'get_dialog': '💬 Получить консультацию'
 }
 
+
+def api_request(api, method):
+	return json.load(requests.get('{}?{}'.format(api, method)))
+
+
 if __name__ == '__main__':
 	#Берем объект бота
 	bot = TeleBot(Config.TOKEN)
+	API = 'http://127.0.0.1:5000/'
 
 	def send_menu_col(chat_id):
 		# Объект макета меню (клавиатуры)
@@ -64,7 +71,7 @@ if __name__ == '__main__':
 		# Обработчик меню и текста
 		if messege.text == BaseKeyboards['get_help']:
 			print('>> get_help')
-			print(requests.get('http://localhost:5000/test'))
+			print(api_request(API, messege.text))
 		elif messege.text == BaseKeyboards['get_phone']:
 			print('>> get_phone')
 		elif messege.text == ClientTypeKeyboards['set_individual']:
