@@ -135,12 +135,12 @@ if __name__ == '__main__':
 		elif messege.text == ClientTypeKeyboards['set_individual']:
 			print('>> set_individual')
 			query.client_type = 'individual'
-			send_menu_col()
+			send_menu_col(messege.chat.id)
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
 			query.client_type = 'entity'
-			send_menu_col()
+			send_menu_col(messege.chat.id)
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
