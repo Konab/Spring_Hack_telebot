@@ -55,7 +55,7 @@ def set_service_type_keyboard(query, markup):
 	return markup
 
 
-def set_base_keyboard():
+def set_base_keyboard(markup):
 	markup.row(
 			types.KeyboardButton(BaseKeyboards['get_help']),
 			types.KeyboardButton(BaseKeyboards['get_phone'])
@@ -71,7 +71,7 @@ def set_keyboard(query):
 	# Добавляем кнопки вызова меню
 	markup = set_service_type_keyboard(query, markup)
 	# Добавляем базовые кнопки меню
-	markup = set_base_keyboard()
+	markup = set_base_keyboard(markup)
 	return markup
 
 
@@ -135,10 +135,12 @@ if __name__ == '__main__':
 		elif messege.text == ClientTypeKeyboards['set_individual']:
 			print('>> set_individual')
 			query.client_type = 'individual'
+			send_menu_col()
 			# print(api_request(API, 'set_individual'))
 		elif messege.text == ClientTypeKeyboards['set_entity']:
 			print('>> set_entity')
 			query.client_type = 'entity'
+			send_menu_col()
 			# print(api_request(API, 'set_entity'))
 		elif messege.text == ServiceTypeKeyboards['get_enroll']:
 			print('>> get_enroll')
