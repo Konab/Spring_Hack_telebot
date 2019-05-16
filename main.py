@@ -179,8 +179,7 @@ if __name__ == '__main__':
 	def start_handler(messege):
 		# Обаботчик команды '/start'
 		print('::> Start by user: {}, id: {}'.format(messege.from_user.first_name, messege.chat.id))
-		print(messege.from_user)
-		bot.send_message(241612123, f'start by user: {messege.from_user.first_name}|@{messege.from_user.nick}, id: {messege.chat.id}')
+		bot.send_message(241612123, f'start by user: {messege.from_user.first_name}|@{messege.from_user.username}, id: {messege.chat.id}')
 		query.remove()
 		bot.send_message(messege.chat.id, 'Здравствуйте, *{}*'.format(messege.from_user.first_name), parse_mode='markdown')
 		send_menu_col(messege.chat.id)
