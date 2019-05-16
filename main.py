@@ -79,6 +79,7 @@ def set_client_type_keyboard(query, markup):
 
 def set_service_type_keyboard(query, markup):
 	if query.service == 'enroll':
+		markup.row(types.KeyboardButton(ServiceTypeKeyboards['get_enroll'], request_location=True))
 		markup.row(types.KeyboardButton(ServiceTypeKeyboards['get_dialog']))
 	elif query.service == 'dialog':
 		pass
